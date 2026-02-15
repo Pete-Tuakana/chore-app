@@ -1,0 +1,65 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Mum – Chore Confirmation</title>  
+  <link rel="stylesheet" href="style.css" />  
+</head>  
+  
+<body>  
+  
+<div id="protectedContent" style="display:none;">  
+  <div class="dashboard mum">  
+    <h1>Mum Confirmation</h1>  
+  
+    <div class="status">  
+      <h2>Pending Chores</h2>  
+      <ul id="pendingList"></ul>  
+    </div>  
+  
+    <button onclick="logout()">Logout</button>  
+  
+  </div>  
+</div>  
+  
+<script src="mum.js"></script>  
+  
+<script>  
+  
+const correctPassword = "mum123";  
+  
+function showProtectedContent() {  
+  document.getElementById("protectedContent").style.display = "block";  
+  renderPending();  
+}  
+  
+function checkLogin() {  
+  const isLoggedIn = localStorage.getItem("mumLoggedIn");  
+  
+  if (isLoggedIn === "true") {  
+    showProtectedContent();  
+    return;  
+  }  
+  
+  const entered = prompt("Enter Mum password:");  
+  
+  if (entered === null) {  
+    window.location.href = "alexander.html";  
+    return;  
+  }  
+  
+  if (entered === correctPassword) {  
+    localStorage.setItem("mumLoggedIn", "true");  
+    showProtectedContent();  
+  } else {  
+    alert("Access denied.");  
+    window.location.href = "alexander.html";  
+  }  
+}  
+  
+document.addEventListener("DOMContentLoaded", checkLogin);  
+  
+</script>  
+  
+</body>  
+</html>  

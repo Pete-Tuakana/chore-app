@@ -1,0 +1,71 @@
+body {  
+  font-family: Arial, sans-serif;  
+  background: #f4f7ff;  
+  display: flex;  
+  justify-content: center;  
+}  
+  
+.dashboard {  
+  width: 360px;  
+  background: white;  
+  padding: 20px;  
+  border-radius: 16px;  
+}  
+  
+h1 {  
+  text-align: center;  
+}  
+  
+.avatar {  
+  font-size: 64px;  
+  text-align: center;  
+  margin-bottom: 20px;  
+}  
+  
+.chores {  
+  display: flex;  
+  justify-content: space-between;  
+  margin-bottom: 20px;  
+}  
+  
+.chores button {  
+  width: 30%;  
+  padding: 10px;  
+  font-size: 16px;  
+  border-radius: 12px;  
+  border: none;  
+  background: #dbe4ff;  
+}  
+  
+.status {  
+  background: #f0f0f0;  
+  padding: 10px;  
+  border-radius: 12px;  
+  margin-bottom: 20px;  
+  max-height: 120px;  
+  overflow-y: auto;  
+}  
+  
+.money {  
+  font-size: 20px;  
+  text-align: center;  
+  margin-bottom: 10px;  
+}  
+  
+.goal {  
+  text-align: center;  
+}  
+  
+.progress-bar {  
+  width: 100%;  
+  height: 16px;  
+  background: #ddd;  
+  border-radius: 8px;  
+}  
+  
+.progress-bar div {  
+  height: 100%;  
+  width: 0%;  
+  background: #4caf50;  
+  border-radius: 8px;  
+}  
