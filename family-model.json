@@ -1,0 +1,120 @@
+{  
+  "children": [],  
+  "chores": [],  
+  "choreInstances": [],  
+  "ledger": [],  
+  "goals": []  
+}  
+  
+{  
+  "id": "child_alex",  
+  "name": "Alexander",  
+  "theme": "blue",  
+  "createdAt": "2026-01-01"  
+}  
+  
+{  
+  "id": "child_conor",  
+  "name": "Conor",  
+  "theme": "orange",  
+  "createdAt": "2026-01-01"  
+}  
+  
+{  
+  "id": "chore_alex_clothes",  
+  "childId": "child_alex",  
+  "name": "Sort clean clothes",  
+  "value": 5,  
+  "frequency": "weekly",  
+  "active": true  
+}  
+  
+[  
+  {  
+    "id": "chore_alex_clothes",  
+    "childId": "child_alex",  
+    "name": "Sort clean clothes",  
+    "value": 5,  
+    "frequency": "weekly",  
+    "active": true  
+  },  
+  {  
+    "id": "chore_alex_dishwasher",  
+    "childId": "child_alex",  
+    "name": "Empty dishwasher",  
+    "value": 5,  
+    "frequency": "weekly",  
+    "active": true  
+  },  
+  {  
+    "id": "chore_alex_bin",  
+    "childId": "child_alex",  
+    "name": "Empty kitchen bin",  
+    "value": 5,  
+    "frequency": "weekly",  
+    "active": true  
+  }  
+]  
+  
+{  
+  "id": "chore_conor_recycling",  
+  "childId": "child_conor",  
+  "name": "Take recycling to bin",  
+  "value": 3,  
+  "frequency": "weekly",  
+  "active": true  
+}  
+  
+{  
+  "id": "ci_2026_01_22_alex_dishwasher",  
+  "choreId": "chore_alex_dishwasher",  
+  "weekStart": "2026-01-20",  
+  "status": "pending",  
+  "childMarkedDoneAt": "2026-01-22T17:42:00",  
+  "confirmedAt": null  
+}  
+  
+{  
+  "id": "ci_2026_01_22_alex_dishwasher",  
+  "choreId": "chore_alex_dishwasher",  
+  "weekStart": "2026-01-20",  
+  "status": "confirmed",  
+  "childMarkedDoneAt": "2026-01-22T17:42:00",  
+  "confirmedAt": "2026-01-22T18:01:00"  
+}  
+  
+{  
+  "id": "led_2026_01_22_001",  
+  "childId": "child_alex",  
+  "amount": 5,  
+  "type": "earning",  
+  "reason": "Empty dishwasher",  
+  "date": "2026-01-22",  
+  "choreInstanceId": "ci_2026_01_22_alex_dishwasher"  
+}  
+  
+{  
+  "id": "goal_alex_lego",  
+  "childId": "child_alex",  
+  "item": "LEGO Star Wars AT-TE",  
+  "cost": 85,  
+  "active": true,  
+  "createdAt": "2026-01-10"  
+}  
+  
+{  
+  "id": "goal_alex_lego",  
+  "childId": "child_alex",  
+  "item": "LEGO Star Wars AT-TE",  
+  "cost": 85,  
+  "active": false,  
+  "completedAt": "2026-02-14"  
+}  
+  
+{  
+  "children": [ ... ],  
+  "chores": [ ... ],  
+  "choreInstances": [ ... ],  
+  "ledger": [ ... ],  
+  "goals": [ ... ]  
+}  
