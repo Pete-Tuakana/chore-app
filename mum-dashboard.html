@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mum Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="dashboard">
+
+    <h1>Mum Dashboard</h1>
+
+    <div class="chores">
+      <button onclick="location.href='alexander.html'">
+        Alexander
+      </button>
+
+      <button onclick="location.href='conor.html'">
+        Conor
+      </button>
+    </div>
+
+    <button onclick="logout()" style="margin-top:20px;">
+      Logout
+    </button>
+
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("mumLoggedIn");
+      location.href = "index.html"; 
+    }
+  </script>
+
+</body>
+</html>
