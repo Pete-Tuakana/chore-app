@@ -13,25 +13,81 @@
     <h1>Mum Dashboard</h1>
 
     <div class="chores">
-      <button onclick="location.href='mum.html'">
+      <button onclick="loadChild('alexanderChoreData')">
         Alexander
       </button>
 
-      <button onclick="location.href='conor.html'">
+      <button onclick="loadChild('conorChoreData')">
         Conor
       </button>
     </div>
 
-    <button onclick="logout()" style="margin-top:20px;">
-      Logout
-    </button>
+    <div class="status">
+      <h2>Pending Chores</h2>
+      <ul id="pendingList"></ul>
+    </div>
+
+    <div class="money">
+      Balance: $<span id="mumBalance">0</span>
+    </div>
+
+    <div class="chores">
+      <button onclick="cashOut()">Cash Out</button>
+    </div>
 
   </div>
 
   <script>
-    function logout() {
-      localStorage.removeItem("mumLoggedIn");
-      location.href = "index.html"; 
+    let currentChildKey = null;
+    let currentData = null;
+
+    function loadChild(storageKey) {
+      currentChildKey = storageKey;
+      currentData = JSON.parse(localStorage.getItem(storageKey));
+
+      if (!currentData) return;
+
+      renderPending();
+    }
+
+    function renderPending() {
+      const list = document.getElementById("pendingList");
+      list.innerHTML = "";
+
+      document.getElementById("mumBalance").textContent = currentData.balance;
+
+      currentData.pending.forEach((item, index) => {
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+          ${item.name} - $${item.value}
+          <button onclick="approve(${index})">Approve</button>
+        `;
+
+        list.appendChild(li);
+      });
+    }
+
+    function approve(index) {
+      const item = currentData.pending[index];
+
+      currentData.balance += item.value;
+      currentData.pending.splice(index, 1);
+
+      save();
+      renderPending();
+    }
+
+    function cashOut() {
+      if (!currentData) return;
+
+      currentData.balance = 0;
+      save();
+      renderPending();
+    }
+
+    function save() {
+      localStorage.setItem(currentChildKey, JSON.stringify(currentData));
     }
   </script>
 
