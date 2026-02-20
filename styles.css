@@ -1,0 +1,22 @@
+body {  
+    margin: 0; /* Removes default body margin */  
+    display: flex;  
+    justify-content: center; /* Centers the container horizontally on the page */  
+    align-items: center; /* Centers the container vertically on the page */  
+    height: 100vh; /* Ensures the body takes up the full screen height */  
+    background-color: #f0f0f0; /* Optional: adds a background color to the screen */  
+}  
+  
+.logo-container {  
+    display: flex;  
+    justify-content: center; /* Centers the image horizontally within its container */  
+    align-items: center; /* Centers the image vertically within its container */  
+    /* Optional: you can add a specific width/height if needed, but flexbox is very dynamic */  
+}  
+  
+.logo {  
+    max-width: 100%; /* Ensures the image is responsive and doesn't overflow its container */  
+    height: auto; /* Maintains the image's aspect ratio */  
+    /* Optional: set a specific size for the logo */  
+    width: 200px;   
+}  
