@@ -3,7 +3,8 @@ const STORAGE_KEY = "conorChoreData";
 // Default data  
 const defaultData = {  
   balance: 0,  
-  goalCost: 60,  
+  goalCost: 60, 
+  lastReset: null,
   chores: {  
     toys: { name: "Pick up toys", value: 1, status: "available" },  
     vacuum: { name: "Vacuum a room", value: 1, status: "available" },  
