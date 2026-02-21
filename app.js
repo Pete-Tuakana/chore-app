@@ -3,7 +3,8 @@ const STORAGE_KEY = "alexanderChoreData";
 // Default data  
 const defaultData = {  
   balance: 0,  
-  goalCost: 85,  
+  goalCost: 85, 
+  lastReset: null,
   chores: {  
     clothes: { name: "Sort clothes", value: 5, status: "available" },  
     dishes: { name: "Empty dishwasher", value: 5, status: "available" },  
