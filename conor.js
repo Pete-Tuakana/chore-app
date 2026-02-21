@@ -85,6 +85,13 @@ function resetChores() {
   data.pending = [];  
 }  
 
+function forceReset() {
+  resetChores();
+  data.lastReset = new Date().toDateString();
+  saveData();
+  renderStatus();
+}
+
 // Run on page load  
 checkDailyReset();
 renderStatus();  
