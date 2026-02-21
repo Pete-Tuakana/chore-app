@@ -1,31 +1,32 @@
-body {  
-    margin: 0; /* Removes default body margin */  
-    display: flex;  
-    justify-content: center; /* Centers the container horizontally on the page */  
-    align-items: center; /* Centers the container vertically on the page */  
-    height: 100vh; /* Ensures the body takes up the full screen height */  
-    background-color: #111; /* Optional: adds a background color to the screen */  
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-}  
-  
-.logo-container {  
-    display: flex;  
-    justify-content: center; /* Centers the image horizontally within its container */  
-    align-items: center; /* Centers the image vertically within its container */  
-    /* Optional: you can add a specific width/height if needed, but flexbox is very dynamic */  
-}  
-  
-.logo {  
-    max-width: 100%; /* Ensures the image is responsive and doesn't overflow its container */  
-    height: auto; /* Maintains the image's aspect ratio */  
-    /* Optional: set a specific size for the logo */  
-    width: 200px;   
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 
-}  
+.logo-container {
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+.logo {
+  max-width: 220px;
+}
+
 .version-text {
   margin-top: 20px;
   font-size: 14px;
   opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
