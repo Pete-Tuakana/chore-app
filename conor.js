@@ -67,6 +67,24 @@ function updateBalanceUI() {
   document.getElementById("progress").style.width = progress + "%";  
 }  
   
+function checkDailyReset() {  
+  const today = new Date().toDateString();  
   
+  if (data.lastReset !== today) {  
+    resetChores();  
+    data.lastReset = today;  
+    saveData();  
+  }  
+}  
+  
+function resetChores() {  
+  for (let key in data.chores) {  
+    data.chores[key].status = "available";  
+  }  
+  
+  data.pending = [];  
+}  
+
 // Run on page load  
+checkDailyReset();
 renderStatus();  
