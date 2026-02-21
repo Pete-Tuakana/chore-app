@@ -4,7 +4,10 @@ body {
     justify-content: center; /* Centers the container horizontally on the page */  
     align-items: center; /* Centers the container vertically on the page */  
     height: 100vh; /* Ensures the body takes up the full screen height */  
-    background-color: #f0f0f0; /* Optional: adds a background color to the screen */  
+    background-color: #111; /* Optional: adds a background color to the screen */  
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
 }  
   
 .logo-container {  
@@ -19,4 +22,10 @@ body {
     height: auto; /* Maintains the image's aspect ratio */  
     /* Optional: set a specific size for the logo */  
     width: 200px;   
+
 }  
+.version-text {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+}
