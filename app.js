@@ -5,6 +5,22 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+async function testWrite() {
+  try {
+    await addDoc(collection(db, "test"), {
+      message: "Pete was here",
+      timestamp: new Date()
+    });
+    console.log("Success!");
+  } catch (e) {
+    console.error("Error:", e);
+  }
+}
+
+testWrite();
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
