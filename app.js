@@ -1,5 +1,23 @@
-const STORAGE_KEY = "alexanderChoreData";  
-  
+const STORAGE_KEY = "alexanderChoreData"; 
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
+  authDomain: "small-change-app.firebaseapp.com",
+  projectId: "small-change-app",
+  storageBucket: "small-change-app.firebasestorage.app",
+  messagingSenderId: "84595380385",
+  appId: "1:84595380385:web:a66bfd44290e958ed720e0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 // Default data  
 const defaultData = {  
   balance: 0,  
