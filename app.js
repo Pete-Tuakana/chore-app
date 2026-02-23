@@ -4,8 +4,22 @@ const STORAGE_KEY = "alexanderChoreData";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
+  authDomain: "small-change-app.firebaseapp.com",
+  projectId: "small-change-app",
+  storageBucket: "small-change-app.firebasestorage.app",
+  messagingSenderId: "84595380385",
+  appId: "1:84595380385:web:a66bfd44290e958ed720e0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 async function testWrite() {
   try {
@@ -20,19 +34,6 @@ async function testWrite() {
 }
 
 testWrite();
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
-  authDomain: "small-change-app.firebaseapp.com",
-  projectId: "small-change-app",
-  storageBucket: "small-change-app.firebasestorage.app",
-  messagingSenderId: "84595380385",
-  appId: "1:84595380385:web:a66bfd44290e958ed720e0"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 // Default data  
 const defaultData = {  
