@@ -34,8 +34,20 @@ const defaultData = {
   pending: []  
 };  
   
-// Load from localStorage or use default  
-let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultData;  
+import { getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+async function loadChores() {
+  const snapshot = await getDocs(collection(db, "chores"));
+  data.chores = {};
+
+  snapshot.forEach((docSnap) => {
+    data.chores[docSnap.id] = docSnap.data();
+  });
+
+  renderStatus();
+}
+
+loadChores();
   
   
 // Save function  
@@ -50,7 +62,17 @@ function markDone(choreKey) {
   
   if (!chore || chore.status !== "available") return;  
   
-  chore.status = "pending";  
+  import { updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+async function markDone(choreKey) {
+  const choreRef = doc(db, "chores", choreKey);
+
+  await updateDoc(choreRef, {
+    status: "pending"
+  });
+
+  loadChores(); // refresh from cloud
+}
   
   data.pending.push({  
     name: chore.name,  
