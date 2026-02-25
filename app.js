@@ -1,13 +1,13 @@
-const STORAGE_KEY = "alexanderChoreData"; 
-
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { 
+  getFirestore, 
+  collection, 
+  getDocs, 
+  updateDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
   authDomain: "small-change-app.firebaseapp.com",
@@ -20,6 +20,14 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// Temporary local state object (so UI doesn't crash)
+let data = {
+  balance: 0,
+  goalCost: 85,
+  chores: {},
+  pending: []
+};
 
 // Default data  
 const defaultData = {  
