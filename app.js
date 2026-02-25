@@ -1,5 +1,32 @@
 const STORAGE_KEY = "alexanderChoreData"; 
 
+import { setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+async function seedChores() {
+  await setDoc(doc(db, "chores", "clothes"), {
+    name: "Sort clothes",
+    value: 0.72,
+    status: "available"
+  });
+
+  await setDoc(doc(db, "chores", "dishes"), {
+    name: "Empty dishwasher",
+    value: 0.72,
+    status: "available"
+  });
+
+  await setDoc(doc(db, "chores", "bin"), {
+    name: "Take out bin",
+    value: 0.72,
+    status: "available"
+  });
+
+  console.log("Seeded chores");
+}
+
+// Run ONCE then delete
+seedChores();
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 // TODO: Add SDKs for Firebase products that you want to use
