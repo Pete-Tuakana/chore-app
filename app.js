@@ -65,13 +65,6 @@ function saveData() {
   
   
 // Mark chore done  
-function markDone(choreKey) {  
-  const chore = data.chores[choreKey];  
-  
-  if (!chore || chore.status !== "available") return;  
-  
-  import { updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
 async function markDone(choreKey) {
   const choreRef = doc(db, "chores", choreKey);
 
@@ -79,17 +72,8 @@ async function markDone(choreKey) {
     status: "pending"
   });
 
-  loadChores(); // refresh from cloud
+  loadChores(); // reload from Firestore
 }
-  
-  data.pending.push({  
-    name: chore.name,  
-    value: chore.value  
-  });  
-  
-  saveData();  
-  renderStatus();  
-}  
   
   
 // Render status  
