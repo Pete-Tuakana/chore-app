@@ -21,33 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-import { setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-async function seedChores() {
-  await setDoc(doc(db, "chores", "clothes"), {
-    name: "Sort clothes",
-    value: 5,
-    status: "available"
-  });
-
-  await setDoc(doc(db, "chores", "dishes"), {
-    name: "Empty dishwasher",
-    value: 5,
-    status: "available"
-  });
-
-  await setDoc(doc(db, "chores", "bin"), {
-    name: "Take out bin",
-    value: 5,
-    status: "available"
-  });
-
-  console.log("Seeded chores");
-}
-
-// Run ONCE then delete
-seedChores();
-
 // Default data  
 const defaultData = {  
   balance: 0,  
