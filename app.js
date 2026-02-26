@@ -42,7 +42,6 @@ const defaultData = {
   pending: []  
 };  
   
-import { getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 async function loadChores() {
   const snapshot = await getDocs(collection(db, "chores"));
@@ -55,14 +54,7 @@ async function loadChores() {
   renderStatus();
 }
 
-loadChores();
-  
-  
-// Save function  
-function saveData() {  
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));  
-}  
-  
+loadChores(); 
   
 // Mark chore done  
 async function markDone(choreKey) {
