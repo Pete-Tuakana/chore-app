@@ -123,3 +123,5 @@ function resetChores() {
 // Run on page load  
 checkDailyReset();
 renderStatus();  
+
+window.markDone = markDone;
