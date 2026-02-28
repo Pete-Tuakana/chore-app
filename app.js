@@ -69,51 +69,51 @@ async function markDone(choreKey) {
   
   
 // Render status  
-function renderStatus() {  
-  const list = document.getElementById("statusList");  
-  list.innerHTML = "";  
+//function renderStatus() {  
+//  const list = document.getElementById("statusList");  
+//  list.innerHTML = "";  
   
-  data.pending.forEach(item => {  
-    const li = document.createElement("li");  
-    li.textContent = item.name + " – Waiting for Mum ⏳";  
-    list.appendChild(li);  
-  });  
+//  data.pending.forEach(item => {  
+//    const li = document.createElement("li");  
+//    li.textContent = item.name + " – Waiting for Mum ⏳";  
+//    list.appendChild(li);  
+//  });  
   
-  updateBalanceUI();  
-}  
+//  updateBalanceUI();  
+//}  
   
   
 // Update money + goal UI  
-function updateBalanceUI() {  
-  document.getElementById("balance").textContent = data.balance;  
+//function updateBalanceUI() {  
+//  document.getElementById("balance").textContent = data.balance;  
   
-  const remaining = Math.max(data.goalCost - data.balance, 0);  
-  document.getElementById("remaining").textContent = remaining;  
+//  const remaining = Math.max(data.goalCost - data.balance, 0);  
+//  document.getElementById("remaining").textContent = remaining;  
   
-  const progress = Math.min((data.balance / data.goalCost) * 100, 100);  
-  document.getElementById("progress").style.width = progress + "%";  
-}  
+//  const progress = Math.min((data.balance / data.goalCost) * 100, 100);  
+//  document.getElementById("progress").style.width = progress + "%";  
+//}  
   
- function checkDailyReset() {  
-  const today = new Date().toDateString();  
+// function checkDailyReset() {  
+//  const today = new Date().toDateString();  
   
-  if (data.lastReset !== today) {  
-    resetChores();  
-    data.lastReset = today;  
-    saveData();  
-  }  
-}  
+ // if (data.lastReset !== today) {  
+ //   resetChores();  
+  //  data.lastReset = today;  
+  //  saveData();  
+//  }  
+//}  
   
-function resetChores() {  
-  for (let key in data.chores) {  
-    data.chores[key].status = "available";  
-  }  
+//function resetChores() {  
+//  for (let key in data.chores) {  
+//    data.chores[key].status = "available";  
+//  }  
   
-  data.pending = [];  
-}  
+//  data.pending = [];  
+//}  
 
 // Run on page load  
-checkDailyReset();
-renderStatus();  
+//checkDailyReset();
+//renderStatus();  
 
 window.markDone = markDone;
