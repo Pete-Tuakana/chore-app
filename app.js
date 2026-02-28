@@ -51,7 +51,7 @@ async function loadChores() {
     data.chores[docSnap.id] = docSnap.data();
   });
 
-  renderStatus();
+  console.log("Chores loaded:", data.chores);
 }
 
 loadChores(); 
