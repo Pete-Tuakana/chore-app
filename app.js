@@ -47,8 +47,18 @@ async function loadChores() {
   const snapshot = await getDocs(collection(db, "chores"));
   data.chores = {};
 
+  const list = document.getElementById("statusList");
+  list.innerHTML = "";
+
   snapshot.forEach((docSnap) => {
-    data.chores[docSnap.id] = docSnap.data();
+    const chore = docSnap.data();
+    data.chores[docSnap.id] = chore;
+
+    if (chore.status === "pending") {
+      const li = document.createElement("li");
+      li.textContent = chore.name + " – Waiting for Mum ⏳";
+      list.appendChild(li);
+    }
   });
 
   console.log("Chores loaded:", data.chores);
