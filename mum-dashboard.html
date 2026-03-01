@@ -126,6 +126,18 @@ async function approve(choreId, value) {
   renderPending();
   renderBalance();
 }
+
+const cashoutBtn = document.getElementById("cashoutBtn");
+
+cashoutBtn.addEventListener("click", async () => {
+  const childRef = doc(db, "children", currentChild);
+
+  await updateDoc(childRef, {
+    balance: 0
+  });
+
+  renderBalance();
+});
     
 window.loadChild = loadChild;
 window.approve = approve;
