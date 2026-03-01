@@ -5,6 +5,7 @@ import {
   getDocs, 
   updateDoc, 
   doc 
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Firebase config
@@ -42,6 +43,16 @@ const defaultData = {
   pending: []  
 };  
   
+function isNewDay(lastReset) {
+  const now = new Date();
+  const last = lastReset.toDate();
+
+  return (
+    now.getFullYear() !== last.getFullYear() ||
+    now.getMonth() !== last.getMonth() ||
+    now.getDate() !== last.getDate()
+  );
+}
 
 async function loadChores() {
   const snapshot = await getDocs(collection(db, "chores"));
@@ -59,6 +70,20 @@ async function loadChores() {
       li.textContent = chore.name + " – Waiting for Mum ⏳";
       list.appendChild(li);
     }
+    if (isNewDay(data.lastReset)) {
+
+  const resetChores = {};
+  Object.keys(data.chores).forEach(key => {
+    resetChores[`chores.${key}.status`] = "pending";
+  });
+
+  await updateDoc(docRef, {
+    ...resetChores,
+    lastReset: Timestamp.now()
+  });
+
+  console.log("Daily reset completed");
+}
   });
 
   console.log("Chores loaded:", data.chores);
