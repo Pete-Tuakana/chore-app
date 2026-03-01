@@ -4,12 +4,12 @@
 <head>  
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conor – Family Chore Bank</title>  
+  <title>Alexander – Family Chore Bank</title>  
   <link rel="stylesheet" href="style.css" />  
 </head>  
 <body>  
   
-  <div class="dashboard conor">  
+  <div class="dashboard alexander">  
   
     <h1>Conor</h1>  
   
@@ -18,14 +18,14 @@
     </div>  
   
     <div class="chores">  
-      <button onclick="markDone('toys')">  
-        Toys<br><span>I did it</span>  
+      <button onclick="markDone('clothes')">  
+        Clothes<br><span>I did it</span>  
       </button>  
-      <button onclick="markDone('vacuum')">  
-        Vacuum<br><span>I did it</span>  
+      <button onclick="markDone('dishes')">  
+        Dishes<br><span>I did it</span>  
       </button>  
-      <button onclick="markDone('recycle')">  
-        Recycle<br><span>I did it</span>  
+      <button onclick="markDone('bin')">  
+        Bin<br><span>I did it</span>  
       </button>  
     </div>  
   
@@ -39,7 +39,7 @@
     </div>  
   
     <div class="goal">  
-      <p>$<span id="remaining">60</span> to go</p>  
+      <p>$<span id="remaining">85</span> to go</p>  
       <div class="progress-bar">  
         <div id="progress"></div>  
       </div>  
@@ -47,9 +47,10 @@
   
   </div>  
   
-  <script src="conor.js"></script>  
-
-<button onclick="forceReset()">Force Reset (Testing)</button>
+<script type="module">
+  window.childName = "conor";
+</script>
+<script type="module" src="child.js"></script>
   
 </body>  
 </html>  
