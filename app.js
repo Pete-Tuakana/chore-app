@@ -5,7 +5,8 @@ import {
   getDocs, 
   updateDoc, 
   doc,
-  Timestamp
+  Timestamp,
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Firebase config
@@ -21,8 +22,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-import { onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Temporary local state object (so UI doesn't crash)
 let data = {
