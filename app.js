@@ -22,6 +22,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+import { onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 // Temporary local state object (so UI doesn't crash)
 let data = {
   balance: 0,
@@ -152,3 +154,22 @@ async function markDone(choreKey) {
 //renderStatus();  
 
 window.markDone = markDone;
+// 🔥 Live balance listener for Alexander
+const alexRef = doc(db, "children", "alexander");
+
+onSnapshot(alexRef, (docSnap) => {
+  if (docSnap.exists()) {
+    const balance = docSnap.data().balance || 0;
+    document.getElementById("balance").textContent = balance.toFixed(2);
+
+    // Update goal progress too (since you already have it)
+    const goalAmount = 100; // change this if needed
+    const remaining = goalAmount - balance;
+
+    document.getElementById("remaining").textContent =
+      remaining > 0 ? remaining.toFixed(2) : "0";
+
+    const percent = Math.min((balance / goalAmount) * 100, 100);
+    document.getElementById("progress").style.width = percent + "%";
+  }
+});
