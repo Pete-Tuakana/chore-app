@@ -1,13 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  updateDoc,
+import { 
+  getFirestore, 
+  collection, 
+  getDocs, 
+  updateDoc, 
   doc,
-  getDoc
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
   authDomain: "small-change-app.firebaseapp.com",
@@ -17,75 +18,137 @@ const firebaseConfig = {
   appId: "1:84595380385:web:a66bfd44290e958ed720e0"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let currentChild = null;
+// Temporary local state object (so UI doesn't crash)
+let data = {
+  balance: 0,
+  goalCost: 85,
+  chores: {},
+  pending: []
+};
 
-async function loadChild(childName) {
-  currentChild = childName;
-  renderPending();
-  renderBalance();
+// Default data  
+const defaultData = {  
+  balance: 0,  
+  goalCost: 85, 
+  lastReset: null,
+  chores: {  
+    clothes: { name: "Sort clothes", value: 5, status: "available" },  
+    dishes: { name: "Empty dishwasher", value: 5, status: "available" },  
+    bin: { name: "Take out bin", value: 5, status: "available" }  
+  },  
+  pending: []  
+};  
+  
+function isNewDay(lastReset) {
+  const now = new Date();
+  const last = lastReset.toDate();
+
+  return (
+    now.getFullYear() !== last.getFullYear() ||
+    now.getMonth() !== last.getMonth() ||
+    now.getDate() !== last.getDate()
+  );
 }
 
-async function renderPending() {
-  const list = document.getElementById("pendingList");
-  list.innerHTML = "";
-
+async function loadChores() {
   const snapshot = await getDocs(collection(db, "chores"));
 
-  snapshot.forEach((docSnap) => {
+  const now = new Date();
+  const todayString = now.toDateString();
+
+  const list = document.getElementById("statusList");
+  list.innerHTML = "";
+
+  for (const docSnap of snapshot.docs) {
     const chore = docSnap.data();
+    const choreRef = doc(db, "chores", docSnap.id);
 
-    if (
-      chore.status === "pending" &&
-      chore.child === currentChild
-    ) {
+    // Daily reset check
+    if (!chore.lastReset || chore.lastReset.toDate().toDateString() !== todayString) {
+      await updateDoc(choreRef, {
+        status: "available",
+        lastReset: Timestamp.now()
+      });
+
+      chore.status = "available";
+    }
+
+    data.chores[docSnap.id] = chore;
+
+    if (chore.status === "pending") {
       const li = document.createElement("li");
-
-      li.innerHTML = `
-        ${chore.name} - $${chore.value}
-        <button onclick="approve('${docSnap.id}', ${chore.value})">
-          Approve
-        </button>
-      `;
-
+      li.textContent = chore.name + " – Waiting for Mum ⏳";
       list.appendChild(li);
     }
-  });
-}
-
-async function renderBalance() {
-  const childRef = doc(db, "children", currentChild);
-  const childSnap = await getDoc(childRef);
-
-  if (childSnap.exists()) {
-    const balance = childSnap.data().balance || 0;
-    document.getElementById("mumBalance").textContent = balance.toFixed(2);
   }
+
+  console.log("Chores loaded:", data.chores);
 }
 
-async function approve(choreId, value) {
-  const choreRef = doc(db, "chores", choreId);
-  const childRef = doc(db, "children", currentChild);
+loadChores(); 
+  
+// Mark chore done  
+async function markDone(choreKey) {
+  const choreRef = doc(db, "chores", choreKey);
 
-  // 1️⃣ Get current balance
-  const childSnap = await getDoc(childRef);
-  const currentBalance = childSnap.data().balance || 0;
-
-  // 2️⃣ Update balance
-  await updateDoc(childRef, {
-    balance: currentBalance + value
-  });
-
-  // 3️⃣ Reset chore
   await updateDoc(choreRef, {
-    status: "available"
+    status: "pending"
   });
 
-  renderPending();
-  renderBalance();
+  loadChores(); // reload from Firestore
 }
+  
+  
+// Render status  
+//function renderStatus() {  
+//  const list = document.getElementById("statusList");  
+//  list.innerHTML = "";  
+  
+//  data.pending.forEach(item => {  
+//    const li = document.createElement("li");  
+//    li.textContent = item.name + " – Waiting for Mum ⏳";  
+//    list.appendChild(li);  
+//  });  
+  
+//  updateBalanceUI();  
+//}  
+  
+  
+// Update money + goal UI  
+//function updateBalanceUI() {  
+//  document.getElementById("balance").textContent = data.balance;  
+  
+//  const remaining = Math.max(data.goalCost - data.balance, 0);  
+//  document.getElementById("remaining").textContent = remaining;  
+  
+//  const progress = Math.min((data.balance / data.goalCost) * 100, 100);  
+//  document.getElementById("progress").style.width = progress + "%";  
+//}  
+  
+// function checkDailyReset() {  
+//  const today = new Date().toDateString();  
+  
+ // if (data.lastReset !== today) {  
+ //   resetChores();  
+  //  data.lastReset = today;  
+  //  saveData();  
+//  }  
+//}  
+  
+//function resetChores() {  
+//  for (let key in data.chores) {  
+//    data.chores[key].status = "available";  
+//  }  
+  
+//  data.pending = [];  
+//}  
 
-window.loadChild = loadChild;
-window.approve = approve;
+// Run on page load  
+//checkDailyReset();
+//renderStatus();  
+
+window.markDone = markDone;
