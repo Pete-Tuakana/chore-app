@@ -13,11 +13,11 @@
     <h1>Mum Dashboard</h1>
 
     <div class="chores">
-      <button onclick="loadChild('alexanderChoreData')">
+      <button onclick="loadChild('alexander')">
         Alexander
       </button>
-
-      <button onclick="loadChild('conorChoreData')">
+      
+      <button onclick="loadChild('conor')">
         Conor
       </button>
     </div>
@@ -37,59 +37,79 @@
 
   </div>
 
-  <script>
-    let currentChildKey = null;
-    let currentData = null;
+  <script type="module">
 
-    function loadChild(storageKey) {
-      currentChildKey = storageKey;
-      currentData = JSON.parse(localStorage.getItem(storageKey));
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  updateDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      if (!currentData) return;
+const firebaseConfig = {
+  apiKey: "AIzaSyAlkbSQOQNk9RDssqaezwcYINZYxCX09O0",
+  authDomain: "small-change-app.firebaseapp.com",
+  projectId: "small-change-app",
+  storageBucket: "small-change-app.firebasestorage.app",
+  messagingSenderId: "84595380385",
+  appId: "1:84595380385:web:a66bfd44290e958ed720e0"
+};
 
-      renderPending();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let currentChild = null;
+
+async function loadChild(childName) {
+  currentChild = childName;
+  renderPending();
+}
+
+async function renderPending() {
+  const list = document.getElementById("pendingList");
+  list.innerHTML = "";
+
+  const snapshot = await getDocs(collection(db, "chores"));
+
+  snapshot.forEach((docSnap) => {
+    const chore = docSnap.data();
+
+    if (
+      chore.status === "pending" &&
+      chore.child === currentChild
+    ) {
+      const li = document.createElement("li");
+
+      li.innerHTML = `
+        ${chore.name} - $${chore.value}
+        <button onclick="approve('${docSnap.id}', ${chore.value})">
+          Approve
+        </button>
+      `;
+
+      list.appendChild(li);
     }
+  });
+}
 
-    function renderPending() {
-      const list = document.getElementById("pendingList");
-      list.innerHTML = "";
+async function approve(choreId, value) {
+  const choreRef = doc(db, "chores", choreId);
 
-      document.getElementById("mumBalance").textContent = currentData.balance;
+  await updateDoc(choreRef, {
+    status: "available"
+  });
 
-      currentData.pending.forEach((item, index) => {
-        const li = document.createElement("li");
+  // TODO: Add balance update here once we structure balances in Firestore
 
-        li.innerHTML = `
-          ${item.name} - $${item.value}
-          <button onclick="approve(${index})">Approve</button>
-        `;
+  renderPending();
+}
 
-        list.appendChild(li);
-      });
-    }
+window.loadChild = loadChild;
+window.approve = approve;
 
-    function approve(index) {
-      const item = currentData.pending[index];
-
-      currentData.balance += item.value;
-      currentData.pending.splice(index, 1);
-
-      save();
-      renderPending();
-    }
-
-    function cashOut() {
-      if (!currentData) return;
-
-      currentData.balance = 0;
-      save();
-      renderPending();
-    }
-
-    function save() {
-      localStorage.setItem(currentChildKey, JSON.stringify(currentData));
-    }
-  </script>
+</script>
 
 </body>
 </html>
