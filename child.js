@@ -80,7 +80,8 @@ onSnapshot(balanceRef, (docSnap) => {
     document.getElementById("balance").textContent =
       balance.toFixed(2);
 
-    const goalAmount = 85;
+    const goalAmount = childName === "conor" ? 35 : 85;
+    
     const remaining = goalAmount - balance;
 
     document.getElementById("remaining").textContent =
