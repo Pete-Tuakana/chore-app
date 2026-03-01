@@ -31,10 +31,9 @@
       Balance: $<span id="mumBalance">0</span>
     </div>
 
-   // <div class="chores">
-   //   <button onclick="cashOut()">Cash Out</button>
-   // </div>
-<button id="cashoutBtn">Cash Out</button>
+    <div class="chores">
+      <button onclick="cashOut()">Cash Out</button>
+    </div>
   </div>
 
   <script type="module">
@@ -127,21 +126,6 @@ async function approve(choreId, value) {
   renderPending();
   renderBalance();
 }
-
-const cashoutBtn = document.getElementById("cashoutBtn");
-
-cashoutBtn.addEventListener("click", async () => {
-  const confirmCashout = confirm("Cash out Alexander's balance?");
-  if (!confirmCashout) return;
-
-  const childRef = doc(db, "children", "alexander");
-
-  await updateDoc(childRef, {
-    balance: 0
-  });
-
-  alert("Balance cashed out!");
-});
     
 window.loadChild = loadChild;
 window.approve = approve;
