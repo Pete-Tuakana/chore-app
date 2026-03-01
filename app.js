@@ -153,7 +153,6 @@ async function markDone(choreKey) {
 //checkDailyReset();
 //renderStatus();  
 
-window.markDone = markDone;
 // 🔥 Live balance listener for Alexander
 const alexRef = doc(db, "children", "alexander");
 
@@ -173,3 +172,6 @@ onSnapshot(alexRef, (docSnap) => {
     document.getElementById("progress").style.width = percent + "%";
   }
 });
+
+window.markDone = markDone;
+
