@@ -4,7 +4,7 @@ import {
   collection, 
   getDocs, 
   updateDoc, 
-  doc 
+  doc,
   Timestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -56,13 +56,27 @@ function isNewDay(lastReset) {
 
 async function loadChores() {
   const snapshot = await getDocs(collection(db, "chores"));
-  data.chores = {};
+
+  const now = new Date();
+  const todayString = now.toDateString();
 
   const list = document.getElementById("statusList");
   list.innerHTML = "";
 
-  snapshot.forEach((docSnap) => {
+  for (const docSnap of snapshot.docs) {
     const chore = docSnap.data();
+    const choreRef = doc(db, "chores", docSnap.id);
+
+    // Daily reset check
+    if (!chore.lastReset || chore.lastReset.toDate().toDateString() !== todayString) {
+      await updateDoc(choreRef, {
+        status: "available",
+        lastReset: Timestamp.now()
+      });
+
+      chore.status = "available";
+    }
+
     data.chores[docSnap.id] = chore;
 
     if (chore.status === "pending") {
@@ -70,21 +84,7 @@ async function loadChores() {
       li.textContent = chore.name + " – Waiting for Mum ⏳";
       list.appendChild(li);
     }
-    if (isNewDay(data.lastReset)) {
-
-  const resetChores = {};
-  Object.keys(data.chores).forEach(key => {
-    resetChores[`chores.${key}.status`] = "pending";
-  });
-
-  await updateDoc(docRef, {
-    ...resetChores,
-    lastReset: Timestamp.now()
-  });
-
-  console.log("Daily reset completed");
-}
-  });
+  }
 
   console.log("Chores loaded:", data.chores);
 }
